@@ -1,15 +1,44 @@
 import { defineComponent, ref } from "vue";
+import type { Credentials } from '../../models/data'
 
 export default defineComponent({
     name: "Login",
     setup(){
-
-        const username = ref('')
-        const password = ref('')
         
+        
+         async function handleSubmit(){
+            // console.log(username.value, password.value)
 
-         function handleSubmit(){
-            console.log(username.value, password.value)
+            const username = ref('').value         
+            const password = ref('').value
+
+            let user: Credentials = {
+                username: username,
+                password: password,
+            };
+          
+              //skickar user till /api/credentials
+              const sendingCredentials = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(user),
+              };
+          
+              const credentialsResult = await fetch(
+                "/api/credentials",
+                sendingCredentials
+              );
+              if (credentialsResult.status === 200) {
+                localStorage.setItem("user", JSON.stringify(credentialsResult));
+                
+              } else {
+                //visar användaren om den skrivit in fel användarnamn/lösenord
+                
+              }
+
+
+
+
            
     }
         return {
