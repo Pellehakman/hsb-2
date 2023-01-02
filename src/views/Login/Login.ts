@@ -1,11 +1,14 @@
 
 import { defineComponent, ref } from "vue";
 import type { Credentials } from '../../models/data'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
     name: "Login",
     setup(){
-        
+      const router = useRouter()
+    
+
       const username = ref('')      
       const password = ref('')
 
@@ -34,11 +37,10 @@ export default defineComponent({
 
               console.log(credentialsResult)
               if (credentialsResult.status === 200) {
-                localStorage.setItem("user", JSON.stringify(credentialsResult));
-                redirect("/home");
+                sessionStorage.setItem("user", JSON.stringify(credentialsResult))
+                router.push({ path: '/home' })
               } else {
                 alert('you have done bad')
-                
               }
 
              
