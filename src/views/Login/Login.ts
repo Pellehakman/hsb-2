@@ -9,12 +9,12 @@ export default defineComponent({
          async function handleSubmit(){
             // console.log(username.value, password.value)
 
-            const username = ref('').value         
-            const password = ref('').value
+            const username = ref('')      
+            const password = ref('')
 
             let user: Credentials = {
-                username: username,
-                password: password,
+                username: username.value,
+                password: password.value,
             };
           
               //skickar user till /api/credentials
@@ -47,4 +47,4 @@ export default defineComponent({
             handleSubmit
         }
     }
-})
+}
